@@ -5741,8 +5741,8 @@ void ImFont::RenderText(ImDrawList* draw_list, float size, const ImVec2& pos, Im
 {
     // Align to be pixel perfect
 begin:
-    float x = IM_TRUNC(pos.x);
-    float y = IM_TRUNC(pos.y);
+    float x = (pos.x);
+    float y = (pos.y);
     if (y > clip_rect.w)
         return;
 

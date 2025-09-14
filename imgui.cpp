@@ -3746,7 +3746,7 @@ void ImGui::RenderText(ImVec2 pos, const char* text, const char* text_end, bool 
 
     if (text != text_display_end)
     {
-        const auto shadowColor = GetColorU32(ImGuiCol_Text) == GetColorU32(ImGuiCol_TextDisabled) ? TEXT_SHADOW_COLOR_DISABLED : TEXT_SHADOW_COLOR;
+        const auto shadowColor = GetColorU32(TEXT_SHADOW_COLOR, GetStyleColorVec4(ImGuiCol_Text).w);
 
         window->DrawList->AddText(g.Font, g.FontSize, pos + TEXT_SHADOW_OFFSET, shadowColor, text, text_display_end);
         window->DrawList->AddText(g.Font, g.FontSize, pos, GetColorU32(ImGuiCol_Text), text, text_display_end);
@@ -3765,7 +3765,7 @@ void ImGui::RenderTextWrapped(ImVec2 pos, const char* text, const char* text_end
 
     if (text != text_end)
     {
-        const auto shadowColor = GetColorU32(ImGuiCol_Text) == GetColorU32(ImGuiCol_TextDisabled) ? TEXT_SHADOW_COLOR_DISABLED : TEXT_SHADOW_COLOR;
+        const auto shadowColor = GetColorU32(TEXT_SHADOW_COLOR, GetStyleColorVec4(ImGuiCol_Text).w);
 
         window->DrawList->AddText(g.Font, g.FontSize, pos + TEXT_SHADOW_OFFSET, shadowColor, text, text_end, wrap_width);
         window->DrawList->AddText(g.Font, g.FontSize, pos, GetColorU32(ImGuiCol_Text), text, text_end, wrap_width);
@@ -3795,7 +3795,7 @@ void ImGui::RenderTextClippedEx(ImDrawList* draw_list, const ImVec2& pos_min, co
     if (align.x > 0.0f) pos.x = ImMax(pos.x, pos.x + (pos_max.x - pos.x - text_size.x) * align.x);
     if (align.y > 0.0f) pos.y = ImMax(pos.y, pos.y + (pos_max.y - pos.y - text_size.y) * align.y);
 
-    const auto shadowColor = GetColorU32(ImGuiCol_Text) == GetColorU32(ImGuiCol_TextDisabled) ? TEXT_SHADOW_COLOR_DISABLED : TEXT_SHADOW_COLOR;
+    const auto shadowColor = GetColorU32(TEXT_SHADOW_COLOR, GetStyleColorVec4(ImGuiCol_Text).w);
 
     // Render
     if (need_clipping)

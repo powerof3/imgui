@@ -3767,7 +3767,7 @@ void ImGui::RenderTextWrapped(ImVec2 pos, const char* text, const char* text_end
     {
         const auto shadowColor = GetColorU32(ImGuiCol_Text) == GetColorU32(ImGuiCol_TextDisabled) ? TEXT_SHADOW_COLOR_DISABLED : TEXT_SHADOW_COLOR;
 
-        window->DrawList->AddText(g.Font, g.FontSize, pos + TEXT_SHADOW_OFFSET, shadowColor, text, text_display_end);
+        window->DrawList->AddText(g.Font, g.FontSize, pos + TEXT_SHADOW_OFFSET, shadowColor, text, text_end, wrap_width);
         window->DrawList->AddText(g.Font, g.FontSize, pos, GetColorU32(ImGuiCol_Text), text, text_end, wrap_width);
         if (g.LogEnabled)
             LogRenderedText(&pos, text, text_end);

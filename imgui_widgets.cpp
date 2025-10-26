@@ -315,8 +315,9 @@ void ImGui::TextDisabledV(const char* fmt, va_list args)
 {
     ImGuiContext& g = *GImGui;
     PushStyleColor(ImGuiCol_Text, g.Style.Colors[ImGuiCol_TextDisabled]);
+    PushStyleColor(ImGuiCol_TextShadow, g.Style.Colors[ImGuiCol_TextShadowDisabled]);
     TextV(fmt, args);
-    PopStyleColor();
+    PopStyleColor(2);
 }
 
 void ImGui::TextWrapped(const char* fmt, ...)

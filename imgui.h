@@ -1729,6 +1729,8 @@ enum ImGuiCol_
 {
     ImGuiCol_Text,
     ImGuiCol_TextDisabled,
+    ImGuiCol_TextShadow,
+    ImGuiCol_TextShadowDisabled,
     ImGuiCol_WindowBg,              // Background of normal windows
     ImGuiCol_ChildBg,               // Background of child windows
     ImGuiCol_PopupBg,               // Background of popups, menus, tooltips windows
@@ -1847,6 +1849,7 @@ enum ImGuiStyleVar_
     ImGuiStyleVar_SeparatorTextBorderSize,  // float     SeparatorTextBorderSize
     ImGuiStyleVar_SeparatorTextAlign,       // ImVec2    SeparatorTextAlign
     ImGuiStyleVar_SeparatorTextPadding,     // ImVec2    SeparatorTextPadding
+    ImGuiStyleVar_TextShadowOffset,         // ImVec2    TextShadowOffset
     ImGuiStyleVar_COUNT
 };
 
@@ -2325,6 +2328,7 @@ struct ImGuiStyle
     float       SeparatorTextBorderSize;    // Thickness of border in SeparatorText()
     ImVec2      SeparatorTextAlign;         // Alignment of text within the separator. Defaults to (0.0f, 0.5f) (left aligned, center).
     ImVec2      SeparatorTextPadding;       // Horizontal offset of text from each edge of the separator + spacing on other axis. Generally small values. .y is recommended to be == FramePadding.y.
+    ImVec2      TextShadowOffset;           // Offset of drop shadow. Set to (0,0) to disable shadow.
     ImVec2      DisplayWindowPadding;       // Apply to regular windows: amount which we enforce to keep visible when moving near edges of your screen.
     ImVec2      DisplaySafeAreaPadding;     // Apply to every windows, menus, popups, tooltips: amount where we avoid displaying contents. Adjust if you cannot see the edges of your screen (e.g. on a TV where scaling has not been configured).
     float       MouseCursorScale;           // Scale software rendered mouse cursor (when io.MouseDrawCursor is enabled). We apply per-monitor DPI scaling over this scale. May be removed later.

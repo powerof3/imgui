@@ -1475,6 +1475,7 @@ ImGuiStyle::ImGuiStyle()
     SeparatorTextBorderSize     = 3.0f;             // Thickness of border in SeparatorText()
     SeparatorTextAlign          = ImVec2(0.0f,0.5f);// Alignment of text within the separator. Defaults to (0.0f, 0.5f) (left aligned, center).
     SeparatorTextPadding        = ImVec2(20.0f,3.f);// Horizontal offset of text from each edge of the separator + spacing on other axis. Generally small values. .y is recommended to be == FramePadding.y.
+    TextShadowOffset            = ImVec2(2.0f,2.0f);// Offset of text shadow
     DisplayWindowPadding        = ImVec2(19,19);    // Window position are clamped to be visible within the display area or monitors by at least this amount. Only applies to regular windows.
     DisplaySafeAreaPadding      = ImVec2(3,3);      // If you cannot see the edge of your screen (e.g. on a TV) increase the safe area padding. Covers popups/tooltips as well regular windows.
     MouseCursorScale            = 1.0f;             // Scale software rendered mouse cursor (when io.MouseDrawCursor is enabled). May be removed later.
@@ -3600,6 +3601,7 @@ static const ImGuiStyleVarInfo GStyleVarsInfo[] =
     { 1, ImGuiDataType_Float, (ImU32)offsetof(ImGuiStyle, SeparatorTextBorderSize)},    // ImGuiStyleVar_SeparatorTextBorderSize
     { 2, ImGuiDataType_Float, (ImU32)offsetof(ImGuiStyle, SeparatorTextAlign) },        // ImGuiStyleVar_SeparatorTextAlign
     { 2, ImGuiDataType_Float, (ImU32)offsetof(ImGuiStyle, SeparatorTextPadding) },      // ImGuiStyleVar_SeparatorTextPadding
+    { 2, ImGuiDataType_Float, (ImU32)offsetof(ImGuiStyle, TextShadowOffset) },          // ImGuiStyleVar_TextShadowOffset
 };
 
 const ImGuiStyleVarInfo* ImGui::GetStyleVarInfo(ImGuiStyleVar idx)
@@ -3693,6 +3695,8 @@ const char* ImGui::GetStyleColorName(ImGuiCol idx)
     {
     case ImGuiCol_Text: return "Text";
     case ImGuiCol_TextDisabled: return "TextDisabled";
+    case ImGuiCol_TextShadow: return "TextShadow";
+    case ImGuiCol_TextShadowDisabled: return "TextShadowDisabled";
     case ImGuiCol_WindowBg: return "WindowBg";
     case ImGuiCol_ChildBg: return "ChildBg";
     case ImGuiCol_PopupBg: return "PopupBg";
@@ -3796,6 +3800,7 @@ void ImGui::RenderText(ImVec2 pos, const char* text, const char* text_end, bool 
 
     if (text != text_display_end)
     {
+        window->DrawList->AddText(g.Font, g.FontSize, pos + g.Style.TextShadowOffset, GetColorU32(ImGuiCol_TextShadow), text, text_display_end);
         window->DrawList->AddText(g.Font, g.FontSize, pos, GetColorU32(ImGuiCol_Text), text, text_display_end);
         if (g.LogEnabled)
             LogRenderedText(&pos, text, text_display_end);
@@ -3812,6 +3817,7 @@ void ImGui::RenderTextWrapped(ImVec2 pos, const char* text, const char* text_end
 
     if (text != text_end)
     {
+        window->DrawList->AddText(g.Font, g.FontSize, pos + g.Style.TextShadowOffset, GetColorU32(ImGuiCol_TextShadow), text, text_end, wrap_width);
         window->DrawList->AddText(g.Font, g.FontSize, pos, GetColorU32(ImGuiCol_Text), text, text_end, wrap_width);
         if (g.LogEnabled)
             LogRenderedText(&pos, text, text_end);
@@ -3843,10 +3849,12 @@ void ImGui::RenderTextClippedEx(ImDrawList* draw_list, const ImVec2& pos_min, co
     if (need_clipping)
     {
         ImVec4 fine_clip_rect(clip_min->x, clip_min->y, clip_max->x, clip_max->y);
+        draw_list->AddText(NULL, 0.0f, pos + GImGui->Style.TextShadowOffset, GetColorU32(ImGuiCol_TextShadow), text, text_display_end, 0.0f, &fine_clip_rect);
         draw_list->AddText(NULL, 0.0f, pos, GetColorU32(ImGuiCol_Text), text, text_display_end, 0.0f, &fine_clip_rect);
     }
     else
     {
+        draw_list->AddText(NULL, 0.0f, pos + GImGui->Style.TextShadowOffset, GetColorU32(ImGuiCol_TextShadow), text, text_display_end, 0.0f, NULL);
         draw_list->AddText(NULL, 0.0f, pos, GetColorU32(ImGuiCol_Text), text, text_display_end, 0.0f, NULL);
     }
 }

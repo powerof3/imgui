@@ -1618,6 +1618,7 @@ void ImGuiStyle::ScaleAllSizes(float scale_factor)
     SeparatorTextPadding = ImTrunc(SeparatorTextPadding * scale_factor);
     DisplayWindowPadding = ImTrunc(DisplayWindowPadding * scale_factor);
     DisplaySafeAreaPadding = ImTrunc(DisplaySafeAreaPadding * scale_factor);
+    TextShadowOffset = ImTrunc(TextShadowOffset * scale_factor);
     MouseCursorScale = ImTrunc(MouseCursorScale * scale_factor);
 }
 
